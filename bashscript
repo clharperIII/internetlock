@@ -1,0 +1,17 @@
+#!/bin/bash
+
+LOGFILE="$HOME/Scripts/fidonetguard.log"
+INTERFACE="Wi-Fi"
+
+KEY_PRESENT=$(ioreg -p IOUSB -l | grep -Ei '("USB Vendor Name" = "Yubico"|"kUSBVendorString" = "Yubico")')
+
+{
+  echo "$(date): KEY_PRESENT='$KEY_PRESENT'"
+  if [ -z "$KEY_PRESENT" ]; then
+    echo "FIDO key NOT found - disabling internet"
+    sudo /usr/sbin/networksetup -setnetworkserviceenabled "$INTERFACE" off
+  else
+    echo "FIDO key found - enabling internet"
+    sudo /usr/sbin/networksetup -setnetworkserviceenabled "$INTERFACE" on
+  fi
+} >> "$LOGFILE" 2>&1
