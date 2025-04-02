@@ -1,4 +1,4 @@
-# internetlock
+# internetguard
 
 **Title:** Enforcing Internet Access Control with a FIDO Key on macOS (Public Guide)
 
